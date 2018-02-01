@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -N NAME
+#PBS -m bea
+#PBS -M NETID@email.arizona.edu
+#PBS -W group_list=msbarker
+#PBS -q standard
+#PBS -l select=1:ncpus=12:mem=72gb
+#PBS -l cput=12:0:0
+#PBS -l walltime=1:0:0
+#PBS -l pvmem=72gb
+
+module load blast
+
+cd ~/blast_data
+
+makeblastdb -in Ceratopteris2.fasta -dbtype nucl
+
+### Run blastn algorithm
+blastn -db Ceratopteris2.fasta -query Ceratopteris1.fasta -out blastn_results.tsv -outfmt '6' -evalue 10e-5
